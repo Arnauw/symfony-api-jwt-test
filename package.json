@@ -1,0 +1,18 @@
+{
+    "name": "symfony-api-jwt-test",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "serve": "frankenphp run --config Caddyfile",
+        "start": "concurrently \"npm run serve\" \"npm run test\""
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "packageManager": "pnpm@10.18.3",
+    "dependencies": {
+        "concurrently": "^9.2.1"
+    }
+}
