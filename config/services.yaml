@@ -16,5 +16,11 @@ services:
     App\:
         resource: '../src/'
 
-    # add more service definitions when explicit configuration is needed
-    # please note that last definitions always *replace* previous ones
+#    App\Controller\CommentTestController:
+#        # This makes the service public and allows it to be used by API Platform
+#        public: true
+#        # This tag is not strictly necessary with modern Symfony, but it's good practice
+#        # as it clearly states the purpose of the class.
+#        tags: ['controller.service_arguments']
+#    # add more service definitions when explicit configuration is needed
+#    # please note that last definitions always *replace* previous ones
