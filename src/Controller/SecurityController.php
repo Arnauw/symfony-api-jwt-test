@@ -9,8 +9,8 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends AbstractController
 {
-    #[Route(path: '/api/login', name: 'api_login', methods: ['POST'])]
-    public function login(AuthenticationUtils $authenticationUtils): Response
+    #[Route(path: '/api/login', name: 'api_login', methods: ['POST', 'GET'])]
+    public function apiLogin(AuthenticationUtils $authenticationUtils): Response
     {
         $user = $this->getUser();
         return $this->json([
@@ -19,23 +19,29 @@ class SecurityController extends AbstractController
         ]);
     }
 
-//    #[Route(path: '/login', name: 'app_login')]
-//    public function login(AuthenticationUtils $authenticationUtils): Response
+    #[Route(path: '/login', name: 'app_login')]
+    public function login(AuthenticationUtils $authenticationUtils): Response
+    {
+        // get the login error if there is one
+        $error = $authenticationUtils->getLastAuthenticationError();
+
+        // last username entered by the user
+        $lastUsername = $authenticationUtils->getLastUsername();
+
+        return $this->render('security/login.html.twig', [
+            'last_username' => $lastUsername,
+            'error' => $error,
+        ]);
+    }
+
+//    #[Route(path: '/api/logout', name: 'api_logout', methods: ['POST', 'GET'])]
+//    public function logout(): void
 //    {
-//        // get the login error if there is one
-//        $error = $authenticationUtils->getLastAuthenticationError();
-//
-//        // last username entered by the user
-//        $lastUsername = $authenticationUtils->getLastUsername();
-//
-//        return $this->render('security/login.html.twig', [
-//            'last_username' => $lastUsername,
-//            'error' => $error,
-//        ]);
+//        throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
 //    }
 
     #[Route(path: '/logout', name: 'app_logout')]
-    public function logout(): void
+    public function apiLogout(): void
     {
         throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
     }

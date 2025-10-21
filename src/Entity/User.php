@@ -6,9 +6,12 @@ use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Delete;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
+
 use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Put;
+use ApiPlatform\OpenApi\Model\Operation;
+use ApiPlatform\OpenApi\OpenApi;
 use App\Repository\UserRepository;
 use App\State\MeStateProvider;
 use Doctrine\ORM\Mapping as ORM;
@@ -24,6 +27,11 @@ use Symfony\Component\Serializer\Attribute\Groups;
         new Get(),
         new GetCollection(
             uriTemplate: "/me",
+            openapi: new Operation(
+                summary: 'NEIN Retrieves the current authenticated user.',
+                description: 'NEIN This endpoint returns the complete User object for the currently logged-in user.',
+                security: [['cookieAuth' => []]]
+            ),
             normalizationContext: ['groups' => ['read:user']],
             security: 'is_granted("ROLE_TEST")',
             provider: MeStateProvider::class
